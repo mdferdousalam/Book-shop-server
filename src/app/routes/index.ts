@@ -5,6 +5,7 @@ import { OrderRoutes } from '../modules/order/order.route'
 import { AdminRoutes } from '../modules/admin/admin.route'
 import { BookRoutes } from '../modules/books/book.route'
 import { ReviewRoutes } from '../modules/reviews/review.route'
+import { WishlistRoutes } from '../modules/wishlist/wishlist.route'
 
 const router = express.Router()
 
@@ -33,7 +34,10 @@ const moduleRoutes = [
     path: '/reviews',
     route: ReviewRoutes,
   },
-  
+  {
+    path: '/wishlist',
+    route: WishlistRoutes,
+  },
 ]
 
 moduleRoutes.forEach(route => router.use(route.path, route.route))
