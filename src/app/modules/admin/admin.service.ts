@@ -24,18 +24,20 @@ const generateRefreshToken = (adminId: string, role: string) => {
 export async function createAdmin(
   input: ICreateAdminInput
 ): Promise<ICreateAdminResponse> {
-  const { password, role, name, phoneNumber, address } = input
+  const { password, role, name, phoneNumber, address, email } = input
   const hashedPassword = await bcrypt.hash(password, 10)
   const admin = await Admin.create({
     password: hashedPassword,
     role,
     name,
+    email,
     phoneNumber,
     address,
   })
   const {
     _id,
     name: adminName,
+    email: adminEmail,
     phoneNumber: adminPhoneNumber,
     address: adminAddress,
     role: adminRole,
@@ -44,11 +46,11 @@ export async function createAdmin(
   const accessToken = generateAccessToken(_id, adminRole)
   const refreshToken = generateRefreshToken(_id, adminRole)
 
-
   return {
     _id,
     role: adminRole,
     name: adminName,
+    email: adminEmail,
     phoneNumber: adminPhoneNumber,
     address: adminAddress,
     accessToken,
@@ -59,8 +61,8 @@ export async function createAdmin(
 export async function adminLogin(
   input: IAdminLoginInput
 ): Promise<IAdminLoginResponse> {
-  const { phoneNumber, password } = input
-  const admin = await Admin.findOne({ phoneNumber })
+  const { email, password } = input
+  const admin = await Admin.findOne({ email })
 
   if (!admin) {
     throw new Error('Admin not found')
