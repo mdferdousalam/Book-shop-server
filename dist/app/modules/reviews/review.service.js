@@ -18,8 +18,8 @@ const mongodb_1 = require("mongodb");
 // Create a new review
 const createReview = (bookId, userId, rating, comment) => __awaiter(void 0, void 0, void 0, function* () {
     const newReview = new review_model_1.default({
-        book: bookId,
-        user: userId,
+        book: new mongodb_1.ObjectId(bookId),
+        user: new mongodb_1.ObjectId(userId),
         rating,
         comment,
     });
