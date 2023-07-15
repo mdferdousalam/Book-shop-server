@@ -28,21 +28,21 @@ const createReview = (bookId, userId, rating, comment) => __awaiter(void 0, void
 exports.createReview = createReview;
 // Get all reviews for a book
 const getAllReviewsForBook = (bookId) => __awaiter(void 0, void 0, void 0, function* () {
-    return yield review_model_1.default.find({ _id: new mongodb_1.ObjectId(bookId) });
+    return yield review_model_1.default.find({ book: new mongodb_1.ObjectId(bookId) });
 });
 exports.getAllReviewsForBook = getAllReviewsForBook;
 // Get a single review by ID
 const getReviewById = (reviewId) => __awaiter(void 0, void 0, void 0, function* () {
-    return yield review_model_1.default.findById({ _id: new mongodb_1.ObjectId(reviewId) });
+    return yield review_model_1.default.findById(new mongodb_1.ObjectId(reviewId));
 });
 exports.getReviewById = getReviewById;
 // Update a review by ID
 const updateReviewById = (reviewId, rating, comment) => __awaiter(void 0, void 0, void 0, function* () {
-    return yield review_model_1.default.findByIdAndUpdate({ _id: new mongodb_1.ObjectId(reviewId) }, { rating, comment }, { new: true });
+    return yield review_model_1.default.findByIdAndUpdate(new mongodb_1.ObjectId(reviewId), { rating, comment }, { new: true });
 });
 exports.updateReviewById = updateReviewById;
 // Delete a review by ID
 const deleteReviewById = (reviewId) => __awaiter(void 0, void 0, void 0, function* () {
-    return yield review_model_1.default.findByIdAndDelete({ _id: new mongodb_1.ObjectId(reviewId) });
+    return yield review_model_1.default.findByIdAndDelete(new mongodb_1.ObjectId(reviewId));
 });
 exports.deleteReviewById = deleteReviewById;

@@ -21,14 +21,14 @@ export const createReview = async (
 export const getAllReviewsForBook = async (
   bookId: string
 ): Promise<IReview[]> => {
-  return await ReviewModel.find({ _id: new ObjectId(bookId) })
+  return await ReviewModel.find({ book: new ObjectId(bookId) })
 }
 
 // Get a single review by ID
 export const getReviewById = async (
   reviewId: string
 ): Promise<IReview | null> => {
-  return await ReviewModel.findById({ _id: new ObjectId(reviewId) })
+  return await ReviewModel.findById(new ObjectId(reviewId))
 }
 
 // Update a review by ID
@@ -38,7 +38,7 @@ export const updateReviewById = async (
   comment: string
 ): Promise<IReview | null> => {
   return await ReviewModel.findByIdAndUpdate(
-    { _id: new ObjectId(reviewId) },
+    new ObjectId(reviewId),
     { rating, comment },
     { new: true }
   )
@@ -48,5 +48,5 @@ export const updateReviewById = async (
 export const deleteReviewById = async (
   reviewId: string
 ): Promise<IReview | null> => {
-  return await ReviewModel.findByIdAndDelete({ _id: new ObjectId(reviewId) })
+  return await ReviewModel.findByIdAndDelete(new ObjectId(reviewId))
 }
