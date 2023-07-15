@@ -1,4 +1,4 @@
-import { Schema, model,Date, Document } from 'mongoose'
+import { Schema, model, Document } from 'mongoose'
 import { IBook } from './book.interface'
 
 type BookDocument = Document & IBook
@@ -24,8 +24,8 @@ const bookSchema = new Schema<BookDocument>({
     type: String,
     required: true,
   },
-  publicationDate: {
-    type: Date,
+  publicationYear: {
+    type: String,
     required: true,
   },
   reviews: [

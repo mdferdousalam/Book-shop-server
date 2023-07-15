@@ -12,10 +12,12 @@ import {
   deleteBookService,
 } from './book.service'
 
+
 // Create a new book
 export const createBookHandler: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
-    const { title,thumbnail, author, genre, publicationDate, reviews } = req.body
+    const { title, thumbnail, author, genre, publicationDate, reviews } =
+      req.body
 
     const newBook: BookDocument = new BookModel({
       title,
@@ -41,7 +43,14 @@ export const createBookHandler: RequestHandler = catchAsync(
 export const getAllBooksHandler: RequestHandler = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const books = await getAllBooksService()
+      const { genre, publicationYear, search } = req.query
+
+      const books = await getAllBooksService(
+        genre as string | null,
+        publicationYear ? parseInt(publicationYear as string) : null,
+        search as string | null
+      )
+      // const books = await getAllBooksService()
       sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
@@ -84,7 +93,8 @@ export const getBookByIdHandler: RequestHandler = catchAsync(
 export const updateBookHandler: RequestHandler = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params
-    const { title, author, genre, publicationDate, reviews } = req.body
+    const { title, author, genre, publicationYear, thumbnail, reviews } =
+      req.body
 
     try {
       const book = await getBookByIdService(id)
@@ -97,9 +107,10 @@ export const updateBookHandler: RequestHandler = catchAsync(
       }
 
       book.title = title
+      book.thumbnail = thumbnail
       book.author = author
       book.genre = genre
-      book.publicationDate = publicationDate
+      book.publicationYear = publicationYear
       book.reviews = reviews
 
       const updatedBook = await updateBookService(id, book)

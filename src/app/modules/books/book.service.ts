@@ -14,27 +14,28 @@ export const getAllBooksService = async (
   publicationYear?: number | null,
   searchQuery?: string | null
 ): Promise<BookDocument[]> => {
-  let query = BookModel.find();
+  let query = BookModel.find()
 
   // Apply genre filter if provided
   if (genre) {
-    query = query.where('genre').equals(genre);
+    query = query.where('genre').equals(genre)
   }
 
   // Apply publication year filter if provided
-  if (publicationYear) {
-    query = query.where('publicationYear').equals(publicationYear);
-  }
+   if (publicationYear) {
+     query = query.where('publicationYear').equals(publicationYear)
+   }
+
 
   // Apply search query if provided
   if (searchQuery) {
     query = query.or([
       { title: { $regex: searchQuery, $options: 'i' } },
-      { author: { $regex: searchQuery, $options: 'i' } }
-    ]);
+      { author: { $regex: searchQuery, $options: 'i' } },
+    ])
   }
 
-  return await query.exec();
+  return await query.exec()
 }
 // Get a single book by ID
 export const getBookByIdService = async (
