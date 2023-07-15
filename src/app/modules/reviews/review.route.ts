@@ -10,8 +10,8 @@ const router = express.Router()
 
 router.post('/', createReviewHandler)
 router.get('/books/:bookId', getAllReviewsForBookHandler)
-router.get('/:id', getReviewByIdHandler)
-router.patch('/:id', updateReviewByIdHandler)
-router.delete('/:id', deleteReviewByIdHandler)
+router.get('/review/:reviewId', getReviewByIdHandler)
+router.patch('/review/:reviewId', updateReviewByIdHandler)
+router.delete('/review/:reviewId', deleteReviewByIdHandler)
 
 export const ReviewRoutes = router

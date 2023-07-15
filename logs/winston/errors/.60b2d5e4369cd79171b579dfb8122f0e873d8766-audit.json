@@ -29,6 +29,16 @@
             "date": 1689412897817,
             "name": "F:\\projects\\levelTwo\\Book-shop-server\\logs\\winston\\errors\\phu-2023-15-07-15-error.log",
             "hash": "1292083c9d105940329154276a5da066002fb6067265fad50163c735fab7af4f"
+        },
+        {
+            "date": 1689435998966,
+            "name": "F:\\projects\\levelTwo\\Book-shop-server\\logs\\winston\\errors\\phu-2023-15-07-21-error.log",
+            "hash": "4e7518d9adde11d57ce27ca9764810d3d8a4c69cce09d6ce1f570b3769582865"
+        },
+        {
+            "date": 1689436828450,
+            "name": "F:\\projects\\levelTwo\\Book-shop-server\\logs\\winston\\errors\\phu-2023-15-07-22-error.log",
+            "hash": "d042e337d8b868dff6fbd32049180f523ef0c4dc724388ec7cd0ab86bb5a06cf"
         }
     ],
     "hashType": "sha256"

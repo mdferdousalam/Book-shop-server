@@ -42,6 +42,7 @@ exports.getAllReviewsForBookHandler = (0, catchAsync_1.default)((req, res) => __
 // Get a single review by ID
 exports.getReviewByIdHandler = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { reviewId } = req.params;
+    console.log(reviewId);
     if (!reviewId) {
         (0, sendResponse_1.default)(res, {
             statusCode: http_status_1.default.BAD_REQUEST,

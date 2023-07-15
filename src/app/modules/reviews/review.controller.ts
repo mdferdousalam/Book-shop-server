@@ -48,6 +48,7 @@ export const getAllReviewsForBookHandler: RequestHandler = catchAsync(
 export const getReviewByIdHandler: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
     const { reviewId } = req.params
+    console.log(reviewId)
     if (!reviewId) {
       sendResponse(res, {
         statusCode: httpStatus.BAD_REQUEST,

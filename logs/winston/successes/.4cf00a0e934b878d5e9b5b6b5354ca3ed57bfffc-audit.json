@@ -29,6 +29,16 @@
             "date": 1689412897800,
             "name": "F:\\projects\\levelTwo\\Book-shop-server\\logs\\winston\\successes\\phu-2023-15-07-15-success.log",
             "hash": "adfee49f91e4f53e8a750fda114b61fa4b70ccdb2eab7ff7a0790ea9dfb4b9a6"
+        },
+        {
+            "date": 1689435998930,
+            "name": "F:\\projects\\levelTwo\\Book-shop-server\\logs\\winston\\successes\\phu-2023-15-07-21-success.log",
+            "hash": "e01a806467c9dcceca568cceeff95e3e2e114521247ec6e2e14872e3b2e2b7ef"
+        },
+        {
+            "date": 1689436805258,
+            "name": "F:\\projects\\levelTwo\\Book-shop-server\\logs\\winston\\successes\\phu-2023-15-07-22-success.log",
+            "hash": "049ebc6267f9f92e7550213ea6b1c83379f3b84d59ac0d0f7b6a61f8b1659f04"
         }
     ],
     "hashType": "sha256"
