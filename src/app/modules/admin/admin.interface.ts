@@ -5,6 +5,7 @@ export type ICreateAdminInput = {
     firstName: string
     lastName: string
   }
+  email: string
   phoneNumber: string
   address: string
 }
@@ -16,6 +17,7 @@ export type ICreateAdminResponse = {
     firstName: string
     lastName: string
   }
+  email: string
   phoneNumber: string
   address: string
   accessToken: string
@@ -23,7 +25,7 @@ export type ICreateAdminResponse = {
 }
 
 export type IAdminLoginInput = {
-  phoneNumber: string
+  email: string
   password: string
 }
 

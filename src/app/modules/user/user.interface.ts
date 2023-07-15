@@ -1,9 +1,15 @@
 import { Document, Schema } from 'mongoose'
 
-type UserRole = 'seller' | 'buyer' | 'admin'
+export type UserRole =
+  | 'guest'
+  | 'registeredUser'
+  | 'admin'
+  | 'authorPublisher'
+  | 'moderator'
 
 export type ICreateUserInput = {
   phoneNumber: string
+  email: string
   role: UserRole
   password: string
   name: {
@@ -15,11 +21,12 @@ export type ICreateUserInput = {
   income: number
   createdAt: Date
   updatedAt: Date
-  cows: Schema.Types.ObjectId[]
+  books: Schema.Types.ObjectId[]
 } & Document
 
 export type IUpdateProfileInput = {
   password?: string
+  email?: string
   name?: {
     firstName?: string
     lastName?: string
@@ -35,6 +42,7 @@ export type ICreateUserResponse = {
     firstName: string
     lastName: string
   }
+  email: string
   phoneNumber: string
   address: string
   accessToken: string
@@ -42,7 +50,7 @@ export type ICreateUserResponse = {
 }
 
 export type IUserLoginInput = {
-  phoneNumber: string
+  email: string
   password: string
 }
 

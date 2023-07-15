@@ -26,10 +26,11 @@ export const createUser = async (
   userData: ICreateUserInput
 ): Promise<ICreateUserResponse> => {
   try {
-    const { password, role, name, phoneNumber, address } = userData
+    const { password, role, name, phoneNumber, address, email } = userData
     const hashedPassword = await bcrypt.hash(password, 10)
     const user = await UserModel.create({
       password: hashedPassword,
+      email,
       role,
       name,
       phoneNumber,
@@ -38,6 +39,7 @@ export const createUser = async (
     const {
       _id,
       name: userName,
+      email:userEmail,
       phoneNumber: userPhoneNumber,
       address: userAddress,
       role: userRole,
@@ -50,6 +52,7 @@ export const createUser = async (
       _id,
       role: userRole,
       name: userName,
+      email:userEmail,
       phoneNumber: userPhoneNumber,
       address: userAddress,
       accessToken,
@@ -63,8 +66,8 @@ export const createUser = async (
 export const loginUser = async (
   input: IUserLoginInput
 ): Promise<IUserLoginResponse> => {
-  const { phoneNumber, password } = input
-  const user = await UserModel.findOne({ phoneNumber })
+  const { email, password } = input
+  const user = await UserModel.findOne({ email })
 
   if (!user) {
     throw new Error('User not found')

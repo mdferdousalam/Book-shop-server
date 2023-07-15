@@ -5,6 +5,7 @@ export type IAdmin = {
   phoneNumber: string
   role: string
   password: string
+  email:string
   name: {
     firstName: string
     lastName: string
@@ -16,6 +17,7 @@ export type IAdmin = {
 
 const adminSchema = new Schema<IAdmin>(
   {
+    email: { type: String, required: true, unique: true },
     phoneNumber: { type: String, required: true, unique: true },
     role: { type: String, enum: ['admin'], required: true },
     password: { type: String, required: true },

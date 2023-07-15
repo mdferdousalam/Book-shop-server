@@ -1,9 +1,9 @@
 import { Schema, model, Document } from 'mongoose'
-
-export type UserRole = 'seller' | 'buyer' | 'admin'
+import { UserRole } from './user.interface'
 
 export type IUser = Document & {
   phoneNumber: string
+  email: string
   role: UserRole
   password: string
   name: {
@@ -15,13 +15,24 @@ export type IUser = Document & {
   income: number
   createdAt: Date
   updatedAt: Date
-  cows: Schema.Types.ObjectId[]
+  books: Schema.Types.ObjectId[]
 }
 
 const userSchema: Schema<IUser> = new Schema(
   {
+    email: { type: String, required: true },
     phoneNumber: { type: String, required: true },
-    role: { type: String, enum: ['seller', 'buyer', 'admin'], required: true },
+    role: {
+      type: String,
+      enum: [
+        'guest',
+        'registeredUser',
+        'admin',
+        'authorPublisher',
+        'moderator',
+      ],
+      required: true,
+    },
     password: { type: String, required: true },
     name: {
       firstName: { type: String, required: true },
@@ -30,7 +41,7 @@ const userSchema: Schema<IUser> = new Schema(
     address: { type: String, required: true },
     budget: { type: Number, default: 0 },
     income: { type: Number, default: 0 },
-    cows: [{ type: Schema.Types.ObjectId, ref: 'Cow' }],
+    books: [{ type: Schema.Types.ObjectId, ref: 'book' }],
   },
   { timestamps: true }
 )

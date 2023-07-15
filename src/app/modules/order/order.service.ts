@@ -2,8 +2,7 @@ import Order from './order.model'
 import IOrder from './order.interface'
 import mongoose from 'mongoose'
 import UserModel from '../user/user.model'
-import Cow from '../cow/cow.model'
-
+import {BookModel} from '../books/book.model'
 // Create a new order
 export const createOrder = async (
   orderData: Partial<IOrder>,
@@ -36,13 +35,13 @@ export const updateUserBalance = async (
 
 // Update cows' status to 'sold'
 export const updateCowsStatus = async (
-  cowIds: string[],
+  bookIds: string[],
   newStatus: string,
   session?: mongoose.ClientSession
 ): Promise<void> => {
   try {
-    await Cow.updateMany(
-      { _id: { $in: cowIds } },
+    await BookModel.updateMany(
+      { _id: { $in: bookIds } },
       { status: newStatus },
       { session }
     )
