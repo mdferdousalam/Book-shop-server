@@ -21,7 +21,7 @@ export const createReview = async (
 export const getAllReviewsForBook = async (
   bookId: string
 ): Promise<IReview[]> => {
-  return await ReviewModel.find({ book: new ObjectId(bookId) })
+  return await ReviewModel.find({ book: new ObjectId(bookId) }).exec()
 }
 
 // Get a single review by ID

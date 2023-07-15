@@ -28,7 +28,7 @@ const createReview = (bookId, userId, rating, comment) => __awaiter(void 0, void
 exports.createReview = createReview;
 // Get all reviews for a book
 const getAllReviewsForBook = (bookId) => __awaiter(void 0, void 0, void 0, function* () {
-    return yield review_model_1.default.find({ book: new mongodb_1.ObjectId(bookId) });
+    return yield review_model_1.default.find({ book: new mongodb_1.ObjectId(bookId) }).exec();
 });
 exports.getAllReviewsForBook = getAllReviewsForBook;
 // Get a single review by ID
