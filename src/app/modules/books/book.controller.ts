@@ -12,11 +12,10 @@ import {
   deleteBookService,
 } from './book.service'
 
-
 // Create a new book
 export const createBookHandler: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
-    const { title, thumbnail, author, genre, publicationYear,price, reviews } =
+    const { title, thumbnail, author, genre, publicationYear, price, reviews } =
       req.body
 
     const newBook: BookDocument = new BookModel({
@@ -48,7 +47,7 @@ export const getAllBooksHandler: RequestHandler = catchAsync(
 
       const books = await getAllBooksService(
         genre as string | null,
-        publicationYear ? parseInt(publicationYear as string) : null,
+        publicationYear as unknown as number | null,
         search as string | null
       )
       // const books = await getAllBooksService()
@@ -94,7 +93,7 @@ export const getBookByIdHandler: RequestHandler = catchAsync(
 export const updateBookHandler: RequestHandler = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params
-    const { title, author, genre, publicationYear,price, thumbnail, reviews } =
+    const { title, author, genre, publicationYear, price, thumbnail, reviews } =
       req.body
 
     try {
@@ -111,7 +110,7 @@ export const updateBookHandler: RequestHandler = catchAsync(
       book.thumbnail = thumbnail
       book.author = author
       book.genre = genre
-      book.price= price
+      book.price = price
       book.publicationYear = publicationYear
       book.reviews = reviews
 

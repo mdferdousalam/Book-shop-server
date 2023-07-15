@@ -5,7 +5,7 @@ type IBook = {
   price: number
   author: string
   genre: string
-  publicationYear: string
+  publicationYear: number
   reviews?: IReview[]
 }
 

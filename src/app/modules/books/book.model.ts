@@ -25,7 +25,7 @@ const bookSchema = new Schema<BookDocument>({
     required: true,
   },
   publicationYear: {
-    type: String,
+    type: Number,
     required: true,
   },
   reviews: [
