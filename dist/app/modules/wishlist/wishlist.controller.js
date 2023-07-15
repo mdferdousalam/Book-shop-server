@@ -20,7 +20,7 @@ const wishlist_service_1 = require("./wishlist.service");
 // Add a book to the user's wishlist
 exports.addToWishlistHandler = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { userId, bookId } = req.body;
-    const wishlistItem = yield (0, wishlist_service_1.addToWishlist)((userId), (bookId));
+    const wishlistItem = yield (0, wishlist_service_1.addToWishlist)(userId, bookId);
     (0, sendResponse_1.default)(res, {
         statusCode: http_status_1.default.CREATED,
         success: true,
@@ -31,7 +31,7 @@ exports.addToWishlistHandler = (0, catchAsync_1.default)((req, res) => __awaiter
 // Get the user's wishlist
 exports.getUserWishlistHandler = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { userId } = req.params;
-    const wishlist = yield (0, wishlist_service_1.getUserWishlist)((userId));
+    const wishlist = yield (0, wishlist_service_1.getUserWishlist)(userId);
     (0, sendResponse_1.default)(res, {
         statusCode: http_status_1.default.OK,
         success: true,
@@ -42,7 +42,7 @@ exports.getUserWishlistHandler = (0, catchAsync_1.default)((req, res) => __await
 // Remove a book from the user's wishlist
 exports.removeFromWishlistHandler = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { wishlistItemId } = req.params;
-    const removedItem = yield (0, wishlist_service_1.removeFromWishlist)((wishlistItemId));
+    const removedItem = yield (0, wishlist_service_1.removeFromWishlist)(wishlistItemId);
     if (!removedItem) {
         (0, sendResponse_1.default)(res, {
             statusCode: http_status_1.default.NOT_FOUND,

@@ -18,8 +18,8 @@ const wishlist_model_1 = __importDefault(require("./wishlist.model"));
 // Add a book to the user's wishlist
 const addToWishlist = (userId, bookId) => __awaiter(void 0, void 0, void 0, function* () {
     const newItem = new wishlist_model_1.default({
-        user: userId,
-        book: bookId,
+        user: new mongodb_1.ObjectId(userId),
+        book: new mongodb_1.ObjectId(bookId),
     });
     return yield newItem.save();
 });
