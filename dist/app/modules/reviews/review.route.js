@@ -8,7 +8,7 @@ const express_1 = __importDefault(require("express"));
 const review_controller_1 = require("./review.controller");
 const router = express_1.default.Router();
 router.post('/', review_controller_1.createReviewHandler);
-router.get('/', review_controller_1.getAllReviewsForBookHandler);
+router.get('/books/:bookId', review_controller_1.getAllReviewsForBookHandler);
 router.get('/:id', review_controller_1.getReviewByIdHandler);
 router.patch('/:id', review_controller_1.updateReviewByIdHandler);
 router.delete('/:id', review_controller_1.deleteReviewByIdHandler);
