@@ -29,22 +29,24 @@ const generateRefreshToken = (adminId, role) => {
 };
 function createAdmin(input) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { password, role, name, phoneNumber, address } = input;
+        const { password, role, name, phoneNumber, address, email } = input;
         const hashedPassword = yield bcrypt_1.default.hash(password, 10);
         const admin = yield admin_model_1.default.create({
             password: hashedPassword,
             role,
             name,
+            email,
             phoneNumber,
             address,
         });
-        const { _id, name: adminName, phoneNumber: adminPhoneNumber, address: adminAddress, role: adminRole, } = admin;
+        const { _id, name: adminName, email: adminEmail, phoneNumber: adminPhoneNumber, address: adminAddress, role: adminRole, } = admin;
         const accessToken = generateAccessToken(_id, adminRole);
         const refreshToken = generateRefreshToken(_id, adminRole);
         return {
             _id,
             role: adminRole,
             name: adminName,
+            email: adminEmail,
             phoneNumber: adminPhoneNumber,
             address: adminAddress,
             accessToken,
@@ -55,8 +57,8 @@ function createAdmin(input) {
 exports.createAdmin = createAdmin;
 function adminLogin(input) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { phoneNumber, password } = input;
-        const admin = yield admin_model_1.default.findOne({ phoneNumber });
+        const { email, password } = input;
+        const admin = yield admin_model_1.default.findOne({ email });
         if (!admin) {
             throw new Error('Admin not found');
         }
