@@ -7,8 +7,8 @@ export const addToWishlist = async (
   bookId: ObjectId
 ): Promise<IWishlistItem> => {
   const newItem: IWishlistItem = new WishlistItemModel({
-    user: userId,
-    book: bookId,
+    user: new ObjectId(userId),
+    book: new ObjectId(bookId),
   })
 
   return await newItem.save()

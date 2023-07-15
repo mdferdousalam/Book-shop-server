@@ -14,10 +14,7 @@ export const addToWishlistHandler: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
     const { userId, bookId } = req.body
 
-    const wishlistItem = await addToWishlist(
-      (userId),
-      (bookId)
-    )
+    const wishlistItem = await addToWishlist(userId, bookId)
     sendResponse(res, {
       statusCode: httpStatus.CREATED,
       success: true,
@@ -31,7 +28,7 @@ export const addToWishlistHandler: RequestHandler = catchAsync(
 export const getUserWishlistHandler: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
     const { userId } = req.params
-    const wishlist = await getUserWishlist((userId))
+    const wishlist = await getUserWishlist(userId)
     sendResponse(res, {
       statusCode: httpStatus.OK,
       success: true,
@@ -45,7 +42,7 @@ export const getUserWishlistHandler: RequestHandler = catchAsync(
 export const removeFromWishlistHandler: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
     const { wishlistItemId } = req.params
-    const removedItem = await removeFromWishlist((wishlistItemId))
+    const removedItem = await removeFromWishlist(wishlistItemId)
     if (!removedItem) {
       sendResponse(res, {
         statusCode: httpStatus.NOT_FOUND,
