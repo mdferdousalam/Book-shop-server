@@ -20,12 +20,12 @@ const http_status_1 = __importDefault(require("http-status"));
 const book_service_1 = require("./book.service");
 // Create a new book
 exports.createBookHandler = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { title, author, genre, publicationDate, reviews } = req.body;
+    const { title, author, genre, publicationYear, reviews } = req.body;
     const newBook = new book_model_1.BookModel({
         title,
         author,
         genre,
-        publicationDate,
+        publicationYear,
         reviews,
     });
     const savedBook = yield (0, book_service_1.createBookService)(newBook);
@@ -77,7 +77,7 @@ exports.getBookByIdHandler = (0, catchAsync_1.default)((req, res, next) => __awa
 // Update a book by ID
 exports.updateBookHandler = (0, catchAsync_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
-    const { title, author, genre, publicationDate, reviews } = req.body;
+    const { title, author, genre, publicationYear, reviews } = req.body;
     try {
         const book = yield (0, book_service_1.getBookByIdService)(id);
         if (!book) {
@@ -90,7 +90,7 @@ exports.updateBookHandler = (0, catchAsync_1.default)((req, res, next) => __awai
         book.title = title;
         book.author = author;
         book.genre = genre;
-        book.publicationDate = publicationDate;
+        book.publicationYear = publicationYear;
         book.reviews = reviews;
         const updatedBook = yield (0, book_service_1.updateBookService)(id, book);
         (0, sendResponse_1.default)(res, {
