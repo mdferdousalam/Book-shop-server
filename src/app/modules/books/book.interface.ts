@@ -1,8 +1,7 @@
-
-
 type IBook = {
   id: string
   title: string
+  thumbnail: string
   price: number
   author: string
   genre: string

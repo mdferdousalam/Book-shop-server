@@ -15,10 +15,11 @@ import {
 // Create a new book
 export const createBookHandler: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
-    const { title, author, genre, publicationDate, reviews } = req.body
+    const { title,thumbnail, author, genre, publicationDate, reviews } = req.body
 
     const newBook: BookDocument = new BookModel({
       title,
+      thumbnail,
       author,
       genre,
       publicationDate,
