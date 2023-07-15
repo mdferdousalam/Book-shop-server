@@ -8,8 +8,8 @@ export const createReview = async (
   comment: string
 ): Promise<IReview> => {
   const newReview: IReview = new ReviewModel({
-    book: new ObjectId(bookId),
-    user: new ObjectId(userId),
+    book: bookId,
+    user: userId,
     rating,
     comment,
   })
