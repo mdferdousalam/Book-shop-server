@@ -22,10 +22,9 @@ export const getAllBooksService = async (
   }
 
   // Apply publication year filter if provided
-   if (publicationYear) {
-     query = query.where('publicationYear').equals(publicationYear)
-   }
-
+  if (publicationYear) {
+    query = query.where('publicationYear').equals(publicationYear)
+  }
 
   // Apply search query if provided
   if (searchQuery) {

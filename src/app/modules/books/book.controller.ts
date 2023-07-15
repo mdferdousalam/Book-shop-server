@@ -16,7 +16,7 @@ import {
 // Create a new book
 export const createBookHandler: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
-    const { title, thumbnail, author, genre, publicationDate, reviews } =
+    const { title, thumbnail, author, genre, publicationYear,price, reviews } =
       req.body
 
     const newBook: BookDocument = new BookModel({
@@ -24,7 +24,8 @@ export const createBookHandler: RequestHandler = catchAsync(
       thumbnail,
       author,
       genre,
-      publicationDate,
+      publicationYear,
+      price,
       reviews,
     })
 
@@ -93,7 +94,7 @@ export const getBookByIdHandler: RequestHandler = catchAsync(
 export const updateBookHandler: RequestHandler = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params
-    const { title, author, genre, publicationYear, thumbnail, reviews } =
+    const { title, author, genre, publicationYear,price, thumbnail, reviews } =
       req.body
 
     try {
@@ -110,6 +111,7 @@ export const updateBookHandler: RequestHandler = catchAsync(
       book.thumbnail = thumbnail
       book.author = author
       book.genre = genre
+      book.price= price
       book.publicationYear = publicationYear
       book.reviews = reviews
 
