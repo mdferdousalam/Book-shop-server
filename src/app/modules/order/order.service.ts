@@ -34,7 +34,7 @@ export const updateUserBalance = async (
 }
 
 // Update cows' status to 'sold'
-export const updateCowsStatus = async (
+export const updateBookStatus = async (
   bookIds: string[],
   newStatus: string,
   session?: mongoose.ClientSession
@@ -46,7 +46,7 @@ export const updateCowsStatus = async (
       { session }
     )
   } catch (error) {
-    throw new Error('Failed to update cows status')
+    throw new Error('Failed to update book status')
   }
 }
 

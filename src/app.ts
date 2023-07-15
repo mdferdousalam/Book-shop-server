@@ -4,10 +4,11 @@ import httpStatus from 'http-status'
 import globalErrorHandler from './app/middlewares/globalErrorHandler'
 import routes from './app/routes'
 import { UserRoutes } from './app/modules/user/user.route'
-import { CowRoutes } from './app/modules/cow/cow.route'
 import { AdminRoutes } from './app/modules/admin/admin.route'
 import { AuthRoutes } from './app/modules/auth/auth.route'
-
+import { BookRoutes } from './app/modules/books/book.route'
+import { ReviewRoutes } from './app/modules/reviews/review.route'
+import { WishlistRoutes } from './app/modules/wishlist/wishlist.route'
 const app: Application = express()
 app.use(cors())
 
@@ -16,12 +17,15 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 import cookieParser from 'cookie-parser'
+
 app.use(cookieParser())
 
 app.use('/api/v1/users/', UserRoutes)
-app.use('/api/v1/cows/', CowRoutes)
 app.use('/api/v1/admin/', AdminRoutes)
 app.use('/api/v1/auth/', AuthRoutes)
+app.use('/api/v1/auth/', BookRoutes)
+app.use('/api/v1/auth/', ReviewRoutes)
+app.use('/api/v1/auth/', WishlistRoutes)
 
 app.use('/api/v1', routes)
 

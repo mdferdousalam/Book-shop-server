@@ -4,6 +4,9 @@ import mongoose from 'mongoose'
 import { RequestHandler } from 'express-serve-static-core'
 import catchAsync from '../../../shared/catchAsync'
 import sendResponse from '../../../shared/sendResponse'
+import IOrder from './order.interface'
+import { getUserById } from '../user/user.service'
+
 import {
   createOrder,
   getAllOrders,
@@ -11,13 +14,10 @@ import {
   updateOrder,
   deleteOrder,
   updateUserBalance,
-  updateCowsStatus,
   updateUserIncome,
+  updateBookStatus,
 } from './order.service'
-
-import IOrder from './order.interface'
-import { getCowById } from '../cow/cow.service'
-import { getUserById } from '../user/user.service'
+import { getBookByIdService } from '../books/book.service'
 
 const startTransaction = async () => {
   const session = await mongoose.startSession()
@@ -28,24 +28,24 @@ const startTransaction = async () => {
 // Create a new order
 export const createOrderController: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
-    const { cow, buyer } = req.body
-    const products: string[] = [] // List of cow IDs
+    const { book, registeredUser } = req.body
+    const products: string[] = [] // List of book IDs
 
-    // Calculate total price based on the list of cows
+    // Calculate total price based on the list of books
     let totalPrice = 0
-    for (const cowId of cow) {
-      const cowData = await getCowById(cowId)
-      if (cowData) {
-        products.push(cowId)
-        totalPrice += cowData.price
+    for (const bookId of book) {
+      const bookData = await getBookByIdService(bookId)
+      if (bookData) {
+        products.push(bookId)
+        totalPrice += bookData.price
       }
     }
 
     // Check if the user is the buyer and has enough money to buy
-    const userData = await getUserById(buyer)
+    const userData = await getUserById(registeredUser)
     if (
       !userData ||
-      userData.role !== 'buyer' ||
+      userData.role !== 'registeredUser' ||
       userData.budget < totalPrice
     ) {
       sendResponse(res, {
@@ -61,30 +61,30 @@ export const createOrderController: RequestHandler = catchAsync(
     const session = await startTransaction()
 
     try {
-      // Deduct the cost of the order from the buyer's balance
+      // Deduct the cost of the order from the registeredUser's balance
       const updatedBalance = userData.budget - totalPrice
-      await updateUserBalance(buyer, updatedBalance, session)
+      await updateUserBalance(registeredUser, updatedBalance, session)
 
-      // Change the status of cows to 'sold'
-      await updateCowsStatus(products, 'sold', session)
+      // Change the status of books to 'sold'
+      await updateBookStatus(products, 'sold', session)
 
       // Create the order
       const orderData: Partial<IOrder> = {
-        customerId: buyer,
+        customerId: registeredUser,
         products,
         totalPrice,
       }
       const createdOrder = await createOrder(orderData, session)
 
       // Increase the seller's income
-      for (const cowId of products) {
-        const cowData = await getCowById(cowId)
-        if (cowData) {
-          const sellerId = cowData.seller.toString()
-          const sellerData = await getUserById(sellerId)
-          if (sellerData && sellerData.role === 'seller') {
-            const sellerIncome = sellerData.income + cowData.price
-            await updateUserIncome(sellerId, sellerIncome, session)
+      for (const bookId of products) {
+        const userData = await getUserById(bookId)
+        if (userData) {
+          const userId = userData._id.toString()
+          const sellerData = await getUserById(userId)
+          if (sellerData && sellerData.role === 'registeredUser') {
+            const sellerIncome = sellerData.income + userData.income
+            await updateUserIncome(userId, sellerIncome, session)
           }
         }
       }

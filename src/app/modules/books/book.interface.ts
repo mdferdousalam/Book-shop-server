@@ -3,6 +3,7 @@
 type IBook = {
   id: string
   title: string
+  price: number
   author: string
   genre: string
   publicationDate: Date
