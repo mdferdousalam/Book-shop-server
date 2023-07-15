@@ -20,12 +20,14 @@ const http_status_1 = __importDefault(require("http-status"));
 const book_service_1 = require("./book.service");
 // Create a new book
 exports.createBookHandler = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { title, author, genre, publicationYear, reviews } = req.body;
+    const { title, thumbnail, author, genre, publicationYear, price, reviews } = req.body;
     const newBook = new book_model_1.BookModel({
         title,
+        thumbnail,
         author,
         genre,
         publicationYear,
+        price,
         reviews,
     });
     const savedBook = yield (0, book_service_1.createBookService)(newBook);
@@ -39,7 +41,9 @@ exports.createBookHandler = (0, catchAsync_1.default)((req, res) => __awaiter(vo
 // Get all books
 exports.getAllBooksHandler = (0, catchAsync_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const books = yield (0, book_service_1.getAllBooksService)();
+        const { genre, publicationYear, search } = req.query;
+        const books = yield (0, book_service_1.getAllBooksService)(genre, publicationYear, search);
+        // const books = await getAllBooksService()
         (0, sendResponse_1.default)(res, {
             statusCode: http_status_1.default.OK,
             success: true,
@@ -77,7 +81,7 @@ exports.getBookByIdHandler = (0, catchAsync_1.default)((req, res, next) => __awa
 // Update a book by ID
 exports.updateBookHandler = (0, catchAsync_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
-    const { title, author, genre, publicationYear, reviews } = req.body;
+    const { title, author, genre, publicationYear, price, thumbnail, reviews } = req.body;
     try {
         const book = yield (0, book_service_1.getBookByIdService)(id);
         if (!book) {
@@ -88,8 +92,10 @@ exports.updateBookHandler = (0, catchAsync_1.default)((req, res, next) => __awai
             });
         }
         book.title = title;
+        book.thumbnail = thumbnail;
         book.author = author;
         book.genre = genre;
+        book.price = price;
         book.publicationYear = publicationYear;
         book.reviews = reviews;
         const updatedBook = yield (0, book_service_1.updateBookService)(id, book);

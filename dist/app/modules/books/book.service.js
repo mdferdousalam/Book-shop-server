@@ -17,9 +17,25 @@ const createBookService = (bookData) => __awaiter(void 0, void 0, void 0, functi
     return yield newBook.save();
 });
 exports.createBookService = createBookService;
-// Get all books
-const getAllBooksService = () => __awaiter(void 0, void 0, void 0, function* () {
-    return yield book_model_1.BookModel.find();
+// Get all books with search and filter options
+const getAllBooksService = (genre, publicationYear, searchQuery) => __awaiter(void 0, void 0, void 0, function* () {
+    let query = book_model_1.BookModel.find();
+    // Apply genre filter if provided
+    if (genre) {
+        query = query.where('genre').equals(genre);
+    }
+    // Apply publication year filter if provided
+    if (publicationYear) {
+        query = query.where('publicationYear').equals(publicationYear);
+    }
+    // Apply search query if provided
+    if (searchQuery) {
+        query = query.or([
+            { title: { $regex: searchQuery, $options: 'i' } },
+            { author: { $regex: searchQuery, $options: 'i' } },
+        ]);
+    }
+    return yield query.exec();
 });
 exports.getAllBooksService = getAllBooksService;
 // Get a single book by ID
