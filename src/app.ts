@@ -23,9 +23,9 @@ app.use(cookieParser())
 app.use('/api/v1/users/', UserRoutes)
 app.use('/api/v1/admin/', AdminRoutes)
 app.use('/api/v1/auth/', AuthRoutes)
-app.use('/api/v1/auth/', BookRoutes)
-app.use('/api/v1/auth/', ReviewRoutes)
-app.use('/api/v1/auth/', WishlistRoutes)
+app.use('/api/v1/books/', BookRoutes)
+app.use('/api/v1/review/', ReviewRoutes)
+app.use('/api/v1/wishlist/', WishlistRoutes)
 
 app.use('/api/v1', routes)
 
