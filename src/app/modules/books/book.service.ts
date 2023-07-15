@@ -8,11 +8,34 @@ export const createBookService = async (
   return await newBook.save()
 }
 
-// Get all books
-export const getAllBooksService = async (): Promise<BookDocument[]> => {
-  return await BookModel.find()
-}
+// Get all books with search and filter options
+export const getAllBooksService = async (
+  genre?: string | null,
+  publicationYear?: number | null,
+  searchQuery?: string | null
+): Promise<BookDocument[]> => {
+  let query = BookModel.find();
 
+  // Apply genre filter if provided
+  if (genre) {
+    query = query.where('genre').equals(genre);
+  }
+
+  // Apply publication year filter if provided
+  if (publicationYear) {
+    query = query.where('publicationYear').equals(publicationYear);
+  }
+
+  // Apply search query if provided
+  if (searchQuery) {
+    query = query.or([
+      { title: { $regex: searchQuery, $options: 'i' } },
+      { author: { $regex: searchQuery, $options: 'i' } }
+    ]);
+  }
+
+  return await query.exec();
+}
 // Get a single book by ID
 export const getBookByIdService = async (
   id: string
