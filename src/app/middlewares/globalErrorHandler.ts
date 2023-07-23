@@ -10,7 +10,7 @@ import { ZodError } from 'zod'
 import handleCastError from '../../errors/handleCastError'
 import handleZodError from '../../errors/handleZodError'
 
-import { errorlogger } from '../../shared/logger'
+// import { errorlogger } from '../../shared/logger'
 import { IGenericErrorMessage } from '../../interface/error'
 
 const globalErrorHandler: ErrorRequestHandler = (
@@ -22,7 +22,7 @@ const globalErrorHandler: ErrorRequestHandler = (
 ) => {
   config.env === 'development'
     ? console.log(`🐱‍🏍 globalErrorHandler ~~`, { error })
-    : errorlogger.error(`🐱‍🏍 globalErrorHandler ~~`, error)
+    : console.log(`🐱‍🏍 globalErrorHandler ~~`, { error })
 
   let statusCode = 500
   let message = 'Something went wrong !'
