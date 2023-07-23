@@ -41,8 +41,6 @@ exports.createUserHandler = (0, catchAsync_1.default)((req, res) => __awaiter(vo
 exports.loginUserHandler = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const input = req.body;
     const { accessToken } = yield (0, user_service_1.loginUser)(input);
-    // Set the access token in localStorage
-    localStorage.setItem('accessToken', accessToken);
     (0, sendResponse_1.default)(res, {
         statusCode: http_status_1.default.OK,
         success: true,

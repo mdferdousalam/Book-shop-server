@@ -48,9 +48,6 @@ export const loginUserHandler: RequestHandler = catchAsync(
     const input: IUserLoginInput = req.body
     const { accessToken } = await loginUser(input)
 
-    // Set the access token in localStorage
-    localStorage.setItem('accessToken', accessToken)
-
     sendResponse(res, {
       statusCode: httpStatus.OK,
       success: true,
