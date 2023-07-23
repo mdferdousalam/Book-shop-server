@@ -26,7 +26,7 @@ export const createUser = async (
   userData: ICreateUserInput
 ): Promise<ICreateUserResponse> => {
   try {
-    const { password, role, name, phoneNumber, address, email } = userData
+    const { password, role, name, phoneNumber,  email } = userData
     const hashedPassword = await bcrypt.hash(password, 10)
     const user = await UserModel.create({
       password: hashedPassword,
@@ -34,14 +34,14 @@ export const createUser = async (
       role,
       name,
       phoneNumber,
-      address,
+     
     })
     const {
       _id,
       name: userName,
       email:userEmail,
       phoneNumber: userPhoneNumber,
-      address: userAddress,
+     
       role: userRole,
     } = user
 
@@ -54,7 +54,7 @@ export const createUser = async (
       name: userName,
       email:userEmail,
       phoneNumber: userPhoneNumber,
-      address: userAddress,
+    
       accessToken,
       refreshToken,
     }

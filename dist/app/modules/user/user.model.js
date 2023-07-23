@@ -19,7 +19,6 @@ const userSchema = new mongoose_1.Schema({
         firstName: { type: String, required: true },
         lastName: { type: String, required: true },
     },
-    address: { type: String, required: true },
     books: [{ type: mongoose_1.Schema.Types.ObjectId, ref: 'book' }],
 }, { timestamps: true });
 const UserModel = (0, mongoose_1.model)('User', userSchema);

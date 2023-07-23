@@ -10,10 +10,10 @@ export type IUser = Document & {
     firstName: string
     lastName: string
   }
-  address?: string
+
   createdAt: Date
   updatedAt: Date
-  books: Schema.Types.ObjectId[]
+  books?: Schema.Types.ObjectId[]
 }
 
 const userSchema: Schema<IUser> = new Schema(
@@ -35,8 +35,7 @@ const userSchema: Schema<IUser> = new Schema(
       firstName: { type: String, required: true },
       lastName: { type: String, required: true },
     },
-    address: { type: String, required: true },
-  
+     
     books: [{ type: Schema.Types.ObjectId, ref: 'book' }],
   },
   { timestamps: true }

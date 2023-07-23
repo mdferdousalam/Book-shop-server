@@ -1,4 +1,4 @@
-import { Document, Schema } from 'mongoose'
+import { Document} from 'mongoose'
 
 export type UserRole =
   | 'registeredUser'
@@ -15,8 +15,8 @@ export type ICreateUserInput = {
     firstName: string
     lastName: string
   }
-  address?: string
-  books?: Schema.Types.ObjectId[]
+ 
+ 
 } & Document
 
 export type IUpdateProfileInput = {
@@ -27,7 +27,7 @@ export type IUpdateProfileInput = {
     lastName?: string
   }
   phoneNumber?: string
-  address?: string
+
 }
 
 export type ICreateUserResponse = {
@@ -39,7 +39,7 @@ export type ICreateUserResponse = {
   }
   email: string
   phoneNumber: string
-  address?: string
+ 
   accessToken: string
   refreshToken?: string
 }

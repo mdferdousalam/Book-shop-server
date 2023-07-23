@@ -30,7 +30,7 @@ const generateRefreshToken = (userId, role) => {
 // Create a new user
 const createUser = (userData) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { password, role, name, phoneNumber, address, email } = userData;
+        const { password, role, name, phoneNumber, email } = userData;
         const hashedPassword = yield bcrypt_1.default.hash(password, 10);
         const user = yield user_model_1.default.create({
             password: hashedPassword,
@@ -38,9 +38,8 @@ const createUser = (userData) => __awaiter(void 0, void 0, void 0, function* () 
             role,
             name,
             phoneNumber,
-            address,
         });
-        const { _id, name: userName, email: userEmail, phoneNumber: userPhoneNumber, address: userAddress, role: userRole, } = user;
+        const { _id, name: userName, email: userEmail, phoneNumber: userPhoneNumber, role: userRole, } = user;
         const accessToken = generateAccessToken(_id, userRole);
         const refreshToken = generateRefreshToken(_id, userRole);
         return {
@@ -49,7 +48,6 @@ const createUser = (userData) => __awaiter(void 0, void 0, void 0, function* () 
             name: userName,
             email: userEmail,
             phoneNumber: userPhoneNumber,
-            address: userAddress,
             accessToken,
             refreshToken,
         };
