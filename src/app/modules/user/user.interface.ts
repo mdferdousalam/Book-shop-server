@@ -16,12 +16,12 @@ export type ICreateUserInput = {
     firstName: string
     lastName: string
   }
-  address: string
-  budget: number
-  income: number
-  createdAt: Date
-  updatedAt: Date
-  books: Schema.Types.ObjectId[]
+  address?: string
+  budget?: number
+  income?: number
+  createdAt?: Date
+  updatedAt?: Date
+  books?: Schema.Types.ObjectId[]
 } & Document
 
 export type IUpdateProfileInput = {
@@ -44,7 +44,7 @@ export type ICreateUserResponse = {
   }
   email: string
   phoneNumber: string
-  address: string
+  address?: string
   accessToken: string
   refreshToken?: string
 }
