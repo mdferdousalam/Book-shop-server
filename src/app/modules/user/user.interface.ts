@@ -1,7 +1,6 @@
 import { Document, Schema } from 'mongoose'
 
 export type UserRole =
-  | 'guest'
   | 'registeredUser'
   | 'admin'
   | 'authorPublisher'
@@ -17,10 +16,6 @@ export type ICreateUserInput = {
     lastName: string
   }
   address?: string
-  budget?: number
-  income?: number
-  createdAt?: Date
-  updatedAt?: Date
   books?: Schema.Types.ObjectId[]
 } & Document
 
