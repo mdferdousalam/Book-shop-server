@@ -7,7 +7,6 @@ const userSchema = new mongoose_1.Schema({
     role: {
         type: String,
         enum: [
-            'guest',
             'registeredUser',
             'admin',
             'authorPublisher',
@@ -21,8 +20,6 @@ const userSchema = new mongoose_1.Schema({
         lastName: { type: String, required: true },
     },
     address: { type: String, required: true },
-    budget: { type: Number, default: 0 },
-    income: { type: Number, default: 0 },
     books: [{ type: mongoose_1.Schema.Types.ObjectId, ref: 'book' }],
 }, { timestamps: true });
 const UserModel = (0, mongoose_1.model)('User', userSchema);

@@ -1,113 +1,119 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteOrder = exports.updateOrder = exports.getOrderById = exports.getAllOrders = exports.updateUserIncome = exports.updateBookStatus = exports.updateUserBalance = exports.createOrder = void 0;
-const order_model_1 = __importDefault(require("./order.model"));
-const user_model_1 = __importDefault(require("../user/user.model"));
-const book_model_1 = require("../books/book.model");
-// Create a new order
-const createOrder = (orderData, session) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const newOrder = new order_model_1.default(orderData);
-        const savedOrder = yield newOrder.save({ session });
-        return savedOrder;
-    }
-    catch (error) {
-        throw new Error('Failed to create order');
-    }
-});
-exports.createOrder = createOrder;
-// Update user's balance
-const updateUserBalance = (userId, newBalance, session) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        yield user_model_1.default.findByIdAndUpdate(userId, { budget: newBalance }, { session });
-    }
-    catch (error) {
-        throw new Error('Failed to update user balance');
-    }
-});
-exports.updateUserBalance = updateUserBalance;
-// Update cows' status to 'sold'
-const updateBookStatus = (bookIds, newStatus, session) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        yield book_model_1.BookModel.updateMany({ _id: { $in: bookIds } }, { status: newStatus }, { session });
-    }
-    catch (error) {
-        throw new Error('Failed to update book status');
-    }
-});
-exports.updateBookStatus = updateBookStatus;
-// Update user's income
-const updateUserIncome = (userId, newIncome, session) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        yield user_model_1.default.findByIdAndUpdate(userId, { income: newIncome }, { session });
-    }
-    catch (error) {
-        throw new Error('Failed to update user income');
-    }
-});
-exports.updateUserIncome = updateUserIncome;
-// Get all orders
-const getAllOrders = () => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const orders = yield order_model_1.default.find();
-        return orders;
-    }
-    catch (error) {
-        throw new Error('Failed to retrieve orders');
-    }
-});
-exports.getAllOrders = getAllOrders;
-// Get a single order by ID
-const getOrderById = (orderId) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const order = yield order_model_1.default.findById(orderId);
-        if (!order) {
-            throw new Error('Order not found');
-        }
-        return order;
-    }
-    catch (error) {
-        throw new Error('Failed to retrieve order');
-    }
-});
-exports.getOrderById = getOrderById;
-// Update an order
-const updateOrder = (orderId, updatedOrderData) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const updatedOrder = yield order_model_1.default.findByIdAndUpdate(orderId, updatedOrderData, { new: true });
-        if (!updatedOrder) {
-            throw new Error('Order not found');
-        }
-        return updatedOrder;
-    }
-    catch (error) {
-        throw new Error('Failed to update order');
-    }
-});
-exports.updateOrder = updateOrder;
-// Delete an order
-const deleteOrder = (orderId) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const deletedOrder = yield order_model_1.default.findByIdAndRemove(orderId);
-        if (!deletedOrder) {
-            throw new Error('Order not found');
-        }
-        return deletedOrder;
-    }
-    catch (error) {
-        throw new Error('Failed to delete order');
-    }
-});
-exports.deleteOrder = deleteOrder;
+// import Order from './order.model'
+// import IOrder from './order.interface'
+// import mongoose from 'mongoose'
+// import UserModel from '../user/user.model'
+// import {BookModel} from '../books/book.model'
+// // Create a new order
+// export const createOrder = async (
+//   orderData: Partial<IOrder>,
+//   session?: mongoose.ClientSession
+// ): Promise<IOrder> => {
+//   try {
+//     const newOrder = new Order(orderData)
+//     const savedOrder = await newOrder.save({ session })
+//     return savedOrder
+//   } catch (error) {
+//     throw new Error('Failed to create order')
+//   }
+// }
+// // Update user's balance
+// export const updateUserBalance = async (
+//   userId: string,
+//   newBalance: number,
+//   session?: mongoose.ClientSession
+// ): Promise<void> => {
+//   try {
+//     await UserModel.findByIdAndUpdate(
+//       userId,
+//       { budget: newBalance },
+//       { session }
+//     )
+//   } catch (error) {
+//     throw new Error('Failed to update user balance')
+//   }
+// }
+// // Update cows' status to 'sold'
+// export const updateBookStatus = async (
+//   bookIds: string[],
+//   newStatus: string,
+//   session?: mongoose.ClientSession
+// ): Promise<void> => {
+//   try {
+//     await BookModel.updateMany(
+//       { _id: { $in: bookIds } },
+//       { status: newStatus },
+//       { session }
+//     )
+//   } catch (error) {
+//     throw new Error('Failed to update book status')
+//   }
+// }
+// // Update user's income
+// export const updateUserIncome = async (
+//   userId: string,
+//   newIncome: number,
+//   session?: mongoose.ClientSession
+// ): Promise<void> => {
+//   try {
+//     await UserModel.findByIdAndUpdate(
+//       userId,
+//       { income: newIncome },
+//       { session }
+//     )
+//   } catch (error) {
+//     throw new Error('Failed to update user income')
+//   }
+// }
+// // Get all orders
+// export const getAllOrders = async (): Promise<IOrder[]> => {
+//   try {
+//     const orders = await Order.find()
+//     return orders
+//   } catch (error) {
+//     throw new Error('Failed to retrieve orders')
+//   }
+// }
+// // Get a single order by ID
+// export const getOrderById = async (orderId: string): Promise<IOrder> => {
+//   try {
+//     const order = await Order.findById(orderId)
+//     if (!order) {
+//       throw new Error('Order not found')
+//     }
+//     return order
+//   } catch (error) {
+//     throw new Error('Failed to retrieve order')
+//   }
+// }
+// // Update an order
+// export const updateOrder = async (
+//   orderId: string,
+//   updatedOrderData: Partial<IOrder>
+// ): Promise<IOrder> => {
+//   try {
+//     const updatedOrder = await Order.findByIdAndUpdate(
+//       orderId,
+//       updatedOrderData,
+//       { new: true }
+//     )
+//     if (!updatedOrder) {
+//       throw new Error('Order not found')
+//     }
+//     return updatedOrder
+//   } catch (error) {
+//     throw new Error('Failed to update order')
+//   }
+// }
+// // Delete an order
+// export const deleteOrder = async (orderId: string): Promise<IOrder> => {
+//   try {
+//     const deletedOrder = await Order.findByIdAndRemove(orderId)
+//     if (!deletedOrder) {
+//       throw new Error('Order not found')
+//     }
+//     return deletedOrder
+//   } catch (error) {
+//     throw new Error('Failed to delete order')
+//   }
+// }

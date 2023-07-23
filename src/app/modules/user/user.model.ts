@@ -10,9 +10,7 @@ export type IUser = Document & {
     firstName: string
     lastName: string
   }
-  address: string
-  budget: number
-  income: number
+  address?: string
   createdAt: Date
   updatedAt: Date
   books: Schema.Types.ObjectId[]
@@ -25,7 +23,6 @@ const userSchema: Schema<IUser> = new Schema(
     role: {
       type: String,
       enum: [
-        'guest',
         'registeredUser',
         'admin',
         'authorPublisher',
@@ -39,8 +36,7 @@ const userSchema: Schema<IUser> = new Schema(
       lastName: { type: String, required: true },
     },
     address: { type: String, required: true },
-    budget: { type: Number, default: 0 },
-    income: { type: Number, default: 0 },
+  
     books: [{ type: Schema.Types.ObjectId, ref: 'book' }],
   },
   { timestamps: true }
