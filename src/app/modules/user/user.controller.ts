@@ -10,11 +10,14 @@ import {
   getUserById,
   updateUser,
   deleteUser,
+  requestUserRole,
+  updateUserRole,
 } from './user.service'
 import {
   ICreateUserInput,
   IUpdateProfileInput,
   IUserLoginInput,
+  IUserRoleInput,
 } from './user.interface'
 import config from '../../../config'
 
@@ -139,3 +142,55 @@ export const deleteUserHandler: RequestHandler = catchAsync(
     }
   }
 )
+
+// Request user role (registered user)
+export const requestUserRoleHandler: RequestHandler = catchAsync(
+  async (req: Request, res: Response) => {
+    const { userId, requestedRole } = req.body as IUserRoleInput;
+    try {
+      // Update the requestedRole in the database
+      await requestUserRole(userId, requestedRole);
+
+      sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: 'User role change request submitted!',
+        data: null,
+      });
+    } catch (error) {
+      console.error('Error updating requested role:', error);
+      sendResponse(res, {
+        statusCode: httpStatus.INTERNAL_SERVER_ERROR,
+        success: false,
+        message: 'Internal server error',
+        data: null,
+      });
+    }
+  }
+);
+
+// Update user role (admin only)
+export const updateUserRoleHandler: RequestHandler = catchAsync(
+  async (req: Request, res: Response) => {
+    const { userId, requestedRole } = req.body as IUserRoleInput;
+    try {
+      // Update the user's role in the database
+      await updateUserRole(userId, requestedRole)
+
+      sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: 'User role updated successfully!',
+        data: null,
+      });
+    } catch (error) {
+      console.error('Error updating user role:', error);
+      sendResponse(res, {
+        statusCode: httpStatus.INTERNAL_SERVER_ERROR,
+        success: false,
+        message: 'Internal server error',
+        data: null,
+      });
+    }
+  }
+);

@@ -1,4 +1,4 @@
-import UserModel from './user.model'
+import UserModel, { IUser } from './user.model'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import config from '../../../config'
@@ -8,6 +8,7 @@ import {
   IUpdateProfileInput,
   IUserLoginInput,
   IUserLoginResponse,
+  UserRole,
 } from './user.interface'
 
 const generateAccessToken = (userId: string, role: string) => {
@@ -26,7 +27,7 @@ export const createUser = async (
   userData: ICreateUserInput
 ): Promise<ICreateUserResponse> => {
   try {
-    const { password, role, name, phoneNumber,  email } = userData
+    const { password, role, name, phoneNumber, email } = userData
     const hashedPassword = await bcrypt.hash(password, 10)
     const user = await UserModel.create({
       password: hashedPassword,
@@ -34,14 +35,13 @@ export const createUser = async (
       role,
       name,
       phoneNumber,
-     
     })
     const {
       _id,
       name: userName,
-      email:userEmail,
+      email: userEmail,
       phoneNumber: userPhoneNumber,
-     
+
       role: userRole,
     } = user
 
@@ -52,14 +52,60 @@ export const createUser = async (
       _id,
       role: userRole,
       name: userName,
-      email:userEmail,
+      email: userEmail,
       phoneNumber: userPhoneNumber,
-    
+
       accessToken,
       refreshToken,
     }
   } catch (error) {
     throw new Error('Failed to create user')
+  }
+}
+
+// Request user role
+export const requestUserRole = async (
+  userId: string,
+  requestedRole: UserRole
+): Promise<IUser> => {
+  try {
+    // Find the user by ID and update the requestedRole field
+    const user = await UserModel.findByIdAndUpdate(
+      userId,
+      { requestedRole },
+      { new: true }
+    )
+
+    if (!user) {
+      throw new Error('User not found')
+    }
+
+    return user
+  } catch (error) {
+    throw new Error('Failed to update requested role')
+  }
+}
+
+// Update user role (admin only)
+export const updateUserRole = async (
+  userId: string,
+  role: UserRole
+): Promise<IUser> => {
+  try {
+    // Find the user by ID and update the role field
+    const user = await UserModel.findByIdAndUpdate(
+      userId,
+      { role },
+      { new: true }
+    )
+
+    if (!user) {
+      throw new Error('User not found')
+    }
+
+    return user
+  } catch (error) {
+    throw new Error('Failed to update user role')
   }
 }
 
@@ -120,7 +166,6 @@ export const updateUser = async (
     throw new Error('Failed to update user')
   }
 }
-
 
 // Delete a user
 export const deleteUser = async (userId: string) => {

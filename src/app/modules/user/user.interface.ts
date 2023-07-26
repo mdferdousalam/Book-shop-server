@@ -53,3 +53,7 @@ export type IUserLoginResponse = {
   accessToken: string
   refreshToken: string
 }
+export type IUserRoleInput = {
+  userId: string
+  requestedRole: UserRole
+}

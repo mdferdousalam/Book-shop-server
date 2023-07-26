@@ -1,3 +1,9 @@
 {
-  "cSpell.words": ["codepaths", "errorlogger", "middlewares", "tsbuildinfo"]
+  "cSpell.words": [
+    "codepaths",
+    "errorlogger",
+    "middlewares",
+    "requestedroll",
+    "tsbuildinfo"
+  ]
 }

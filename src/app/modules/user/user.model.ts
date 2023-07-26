@@ -10,7 +10,7 @@ export type IUser = Document & {
     firstName: string
     lastName: string
   }
-
+  requestedroll?: UserRole // added new
   createdAt: Date
   updatedAt: Date
   books?: Schema.Types.ObjectId[]

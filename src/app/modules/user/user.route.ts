@@ -6,6 +6,8 @@ import {
   deleteUserHandler,
   loginUserHandler,
   createUserHandler,
+  requestUserRoleHandler,
+  updateUserRoleHandler,
 } from './user.controller'
 import { adminOnly, authenticate } from '../../middlewares/auth.middleware'
 // import { validateUser } from './user.validation'
@@ -19,7 +21,11 @@ router.post('/login', loginUserHandler)
 
 // Get all users
 router.get('/', authenticate, adminOnly, getAllUsers)
+// Request user role (registered user)
+router.post('/request-user-role', authenticate, requestUserRoleHandler);
 
+// Update user role (admin only)
+router.patch('/update-user-role', authenticate, adminOnly, updateUserRoleHandler);
 // Get a single user by ID
 router.get('/:id', authenticate, adminOnly, getUserByIdHandler)
 
