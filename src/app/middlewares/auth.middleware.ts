@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express'
 import jwt, { JwtPayload } from 'jsonwebtoken'
 import config from '../../config'
 
-type AuthRequest = {
+export type AuthRequest = {
   user?: JwtPayload & { role: string }
 } & Request
 

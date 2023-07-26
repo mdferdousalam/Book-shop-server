@@ -10,7 +10,7 @@ export type IUser = Document & {
     firstName: string
     lastName: string
   }
-  requestedroll?: UserRole // added new
+  requestedRole?: UserRole // added new
   createdAt: Date
   updatedAt: Date
   books?: Schema.Types.ObjectId[]
@@ -22,12 +22,7 @@ const userSchema: Schema<IUser> = new Schema(
     phoneNumber: { type: String, required: true },
     role: {
       type: String,
-      enum: [
-        'registeredUser',
-        'admin',
-        'authorPublisher',
-        'moderator',
-      ],
+      enum: ['registeredUser', 'admin', 'authorPublisher', 'moderator'],
       required: true,
     },
     password: { type: String, required: true },
@@ -35,7 +30,7 @@ const userSchema: Schema<IUser> = new Schema(
       firstName: { type: String, required: true },
       lastName: { type: String, required: true },
     },
-     
+
     books: [{ type: Schema.Types.ObjectId, ref: 'book' }],
   },
   { timestamps: true }
