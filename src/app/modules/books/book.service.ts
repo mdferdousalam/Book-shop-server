@@ -34,8 +34,12 @@ export const getAllBooksService = async (
     ])
   }
   query = query.sort({ createdAt: -1 })
-  return await query.exec()
+  const books = await query.exec()
+  // return await query.exec()
+  console.log(books) // Log the API response
+  return books
 }
+
 // Get a single book by ID
 export const getBookByIdService = async (
   id: string
