@@ -7,6 +7,8 @@ type IBook = {
   genre: string
   publicationYear: number
   reviews?: IReview[]
+  createdAt?: Date
+  updatedAt?: Date
 }
 
 type IReview = {

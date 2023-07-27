@@ -33,7 +33,7 @@ export const getAllBooksService = async (
       { author: { $regex: searchQuery, $options: 'i' } },
     ])
   }
-
+  query = query.sort({ createdAt: -1 })
   return await query.exec()
 }
 // Get a single book by ID
