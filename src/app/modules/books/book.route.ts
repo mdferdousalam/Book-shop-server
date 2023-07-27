@@ -4,8 +4,8 @@ const router = express.Router()
 
 router.get('/', getAllBooksHandler)
 router.get('/:id', getBookByIdHandler)
-router.post('/',  createBookHandler)
-router.patch('/:id', updateBookHandler)
-router.delete('/:id', deleteBookHandler)
+router.post('/add-book', createBookHandler)
+router.patch('/edit-book/:id', updateBookHandler)
+router.delete('/delete-book/:id', deleteBookHandler)
 
 export const BookRoutes = router
