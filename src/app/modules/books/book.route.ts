@@ -9,7 +9,7 @@ import {
 const router = express.Router()
 
 router.get('/', getAllBooksHandler)
-router.get('/:id', getBookByIdHandler)
+router.get('/bookdetails/:id', getBookByIdHandler)
 router.post('/', createBookHandler)
 router.patch('/:id', updateBookHandler)
 router.delete('/:id', deleteBookHandler)
