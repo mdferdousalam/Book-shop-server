@@ -5,10 +5,15 @@ import { AdminRoutes } from '../modules/admin/admin.route'
 import { BookRoutes } from '../modules/books/book.route'
 import { ReviewRoutes } from '../modules/reviews/review.route'
 import { WishlistRoutes } from '../modules/wishlist/wishlist.route'
+import { ServerHealthRoute } from '../modules/health/server.health.route'
 
 const router = express.Router()
 
 const moduleRoutes = [
+  {
+    path: '/',
+    route: ServerHealthRoute,
+  },
   {
     path: '/auth',
     route: AuthRoutes,
