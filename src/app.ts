@@ -17,6 +17,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 import cookieParser from 'cookie-parser'
+import { ServerHealthRoute } from './app/modules/health/server.health.route'
 
 app.use(cookieParser())
 
@@ -26,9 +27,9 @@ app.use(cookieParser())
 // app.use('/api/v1/books/', BookRoutes)
 // app.use('/api/v1/review/', ReviewRoutes)
 // app.use('/api/v1/wishlist/', WishlistRoutes)
-
+app.use(routes)
 app.use('/api/v1', routes)
-
+app.use(ServerHealthRoute);
 //Testing
 // app.get('/', async (req: Request, res: Response, next: NextFunction) => {
 //   throw new Error('Testing Error logger')
