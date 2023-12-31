@@ -11,27 +11,27 @@ const router = express.Router()
 const moduleRoutes = [
 
   {
-    path: '/auth',
+    path: '/api/v1/auth',
     route: AuthRoutes,
   },
   {
-    path: '/admin',
+    path: '/api/v1/admin',
     route: AdminRoutes,
   },
   {
-    path: '/users',
+    path: '/api/v1/users',
     route: UserRoutes,
   },
   {
-    path: '/books',
+    path: '/api/v1/books',
     route: BookRoutes,
   },
   {
-    path: '/reviews',
+    path: '/api/v1/reviews',
     route: ReviewRoutes,
   },
   {
-    path: '/wishlist',
+    path: '/api/v1/wishlist',
     route: WishlistRoutes,
   },
 ]
